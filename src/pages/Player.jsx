@@ -3,7 +3,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import ReactPlayer from 'react-player/youtube'
 import { useSelector } from 'react-redux'
 
+//functionality:
 import { youtubeService } from '../services/youtube.service'
+import { utilService } from '../services/util.service'
+
 // style:
 import ReactLoading from 'react-loading'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
@@ -13,7 +16,7 @@ import SkipNextIcon from '@material-ui/icons/SkipNext'
 import VolumeMuteIcon from '@material-ui/icons/VolumeMute'
 import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 
-export function Player({ song }) {
+export function Player({ song , songs, getSongToPlay }) {
   const playerRef = useRef()
   const [isReady, setIsReady] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
@@ -24,9 +27,8 @@ export function Player({ song }) {
   const [timePlayed, setTimePlayed] = useState(0)
 
   useEffect(() => {
-    
+    console.log(song);
     if(playerRef){
-      console.log(playerRef);
       if(!isPlaying) setIsPlaying(true)
       playerRef.current?.seekTo(timePlayed)
     } 
@@ -62,11 +64,15 @@ export function Player({ song }) {
   const toggleMute = () => setIsMuted(!isMuted)
 
   const getNextSong = () => {
-    console.log('next song')
+    const idx = utilService.findIdxById( songs, song.id)
+    if(idx && idx < songs.length) getSongToPlay(idx + 1)
   }
 
   const getPrevSong = () => {
-    console.log('prev song')
+    console.log(songs, song.id);
+    const idx = utilService.findIdxById( songs, song.id)
+    console.log('idxprev-', idx);
+    if(idx) getSongToPlay(idx - 1)
   }
 
   const handleProgress = (ev) => {
@@ -88,8 +94,8 @@ export function Player({ song }) {
   }
 
   const handleDuration = (duration) => setDuration(duration)
-
-  const _title = youtubeService._titleSimplify(song.snippet.title)
+  if(!song)  return <ReactLoading type={'cube'} color='#a22b44' />
+  const _title =  youtubeService._titleSimplify(song.snippet.title)
   return (
     <React.Fragment>
       <ReactPlayer
@@ -97,7 +103,7 @@ export function Player({ song }) {
         className='player player-fragment'
         width='600px'
         height='50px'
-        url={`https://www.youtube.com/watch?v=${song?.id}`}
+        url={`https://www.youtube.com/watch?v=${song?.id}` || 'https://www.youtube.com/watch?v=KDIbpeu9Ccw'}
         playing={isPlaying}
         controls={false}
         volume={volume}

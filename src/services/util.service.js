@@ -22,7 +22,7 @@ function getRandomNumber(min, max) {
 }
 
 function findIdxById(arr, id) {
-  return arr.findIndex((item) => item._id === id)
+  return arr.findIndex((item) => item.id === id)
 }
 
 function findIdxByName(arr, name) {

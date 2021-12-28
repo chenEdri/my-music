@@ -1,13 +1,13 @@
 const initalPaginator = {
   count: 6,
-  page: 1
+  page: 1,
 }
 
 const initialState = {
   songs: [],
   currSong: null,
   paginator: initalPaginator,
-  isListView: true
+  isListView: true,
 }
 
 export function songReducer(state = initialState, action) {
@@ -18,7 +18,6 @@ export function songReducer(state = initialState, action) {
         songs: action.songs,
       }
     case 'SET_SONG':
-      console.log('songR');
       return {
         ...state,
         currSong: action.song,
@@ -32,7 +31,7 @@ export function songReducer(state = initialState, action) {
       return {
         ...state,
         songs: state.songs.map((song) =>
-          song._id === action.savedSong._id ? action.savedSong : song
+          song.id === action.savedSong.id ? action.savedSong : song
         ),
       }
     case 'ADD_SONG':
@@ -41,14 +40,14 @@ export function songReducer(state = initialState, action) {
         songs: state.songs.push(action.savedSong),
       }
     case 'SET_PAGE':
-      return{
+      return {
         ...state,
-        paginator: {...state.paginator, page: action.page}
+        paginator: { ...state.paginator, page: action.page },
       }
     case 'SET_VIEW':
       return {
         ...state,
-        isListView: action.isListView
+        isListView: action.isListView,
       }
     default:
       return state

@@ -1,6 +1,6 @@
 import Home from './pages/Home'
 import Main from './pages/Main'
-import PlaylistDetails from './pages/PlaylistDetails'
+import UserDashboard from './pages/UserDashboard'
 export default [
     {
         path: '/',
@@ -13,8 +13,8 @@ export default [
         name: 'Main Page'
     },
     {
-        path: '/playlist/:id',
-        component: PlaylistDetails,
-        name: 'Main Page'
+        path: '/user',
+        component: UserDashboard,
+        name: 'User Dashboard'
     }
 ]

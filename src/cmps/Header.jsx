@@ -10,6 +10,7 @@ export function _Header(props) {
             <div className="left-nav">
                 <NavLink className="link" to="/main">Main-Page</NavLink>
                 <NavLink to="/">Home</NavLink>
+                <NavLink to="/user">Dashboard</NavLink>
             </div>
             <input type="checkbox" className="custom-checkbox" onClick={()=>props.toggleDarkMode()}/>
         </div>

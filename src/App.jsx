@@ -8,31 +8,36 @@ import { Header } from './cmps/Header'
 import { Footer } from './cmps/Footer'
 import ScrollToTop from './cmps/ScrollToTop'
 import { Player } from './pages/Player'
+import routes from './router'
 
 // functionality:
-import routes from './router'
+import {loadSong, saveSongToPlay} from './store/action/song.action'
 import { loadHistory, saveUserHistory } from './store/action/history.action'
 import { eventBusService } from './services/eventBus.service'
 
 function App() {
   const { lastUserhistory } = useSelector((state) => state.historyReducer)
-  const { isDarkTheme } = lastUserhistory
-  const [songToPlay, setSongToPlay] = useState(null)
+  const {songs, currSong} = useSelector((state) => state.songReducer)
+  const {isDarkTheme} = lastUserhistory
   const dispatch = useDispatch()
   let removeEventBus;
 
   useEffect(() => {
     if (!lastUserhistory) dispatch(loadHistory())
     removeEventBus = eventBusService.on('play-song', (song) => {
-      setSongToPlay(song)
+      song = {...song, isPlaying:true}
+      dispatch(saveSongToPlay(song))
     })
     return ()=> {removeEventBus = null}
-  }, [lastUserhistory])
+  }, [lastUserhistory, currSong])
 
   const toggleDarkMode = () => {
     dispatch(
       saveUserHistory('SET_LAST_USER_HISTORY', 'isDarkTheme', !isDarkTheme)
     )
+  }
+  const getSongToPlay = (idx) =>{
+   dispatch(loadSong(songs[idx].id , true))
   }
 
   const bgc = isDarkTheme ? 'dark-bgc' : 'li-bgc'
@@ -52,7 +57,7 @@ function App() {
         </Switch>
         <ScrollToTop />
       </Router>
-      {songToPlay ? <Player song={songToPlay} /> : <Footer />}
+      {currSong && currSong.isPlaying ? <Player song={currSong} songs = {songs} getSongToPlay={getSongToPlay}/> : <Footer />}
     </div>
   )
 }

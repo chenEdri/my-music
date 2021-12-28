@@ -9,9 +9,9 @@ export function loadSongs(search) {
       };
 }
 
-export function loadSong(songId){
+export function loadSong(songId , isPlaying = false){
   return async dispatch =>{
-    const song = await songService.getById(songId);
+    const song = await songService.getById(songId, isPlaying);
     await historyService.addVisitedSong(song)
     dispatch({ type: 'SET_SONG', song })
     dispatch({type:'ADD_VISITED_SONGS', song})
@@ -30,11 +30,15 @@ export function clearCurrSong(){
 }
 
 export function saveSong(song) {
-  const type = (song._id)? 'EDIT_SONG' : 'ADD_SONG';
+  const type = (song.id)? 'EDIT_SONG' : 'ADD_SONG';
   return async dispatch => {
       const savedSong = await songService.save(song);
         dispatch({ type , savedSong })
       };
+}
+
+export function saveSongToPlay(song){
+  return dispatch => {dispatch({ type: 'SET_SONG', song })}
 }
 
 export function setPage(page){

@@ -19,9 +19,10 @@ async function query(txt) {
   return songs
 }
 
-async function getById(songId) {
-  const song = await youtubeService.getSongById(songId)
-  return song.items[0]
+async function getById(songId, isPlaying) {
+  let song = await youtubeService.getSongById(songId)
+  song = {...song.items[0], isPlaying}
+  return song
 }
 
 async function remove(songId) {
