@@ -24,8 +24,12 @@ export function Player({ song }) {
   const [timePlayed, setTimePlayed] = useState(0)
 
   useEffect(() => {
-    console.log(song.id);
-    if(playerRef) playerRef.current?.seekTo(timePlayed)
+    
+    if(playerRef){
+      console.log(playerRef);
+      if(!isPlaying) setIsPlaying(true)
+      playerRef.current?.seekTo(timePlayed)
+    } 
   }, [isSeeking, song])
 
   //functions:

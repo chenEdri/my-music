@@ -18,6 +18,7 @@ export function songReducer(state = initialState, action) {
         songs: action.songs,
       }
     case 'SET_SONG':
+      console.log('songR');
       return {
         ...state,
         currSong: action.song,

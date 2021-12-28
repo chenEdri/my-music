@@ -39,7 +39,7 @@ async function addVisitedSong(song) {
   let history = await storageService.query(STORAGE_KEY)
   const { visitedSongs } = history
   visitedSongs.push(song) 
-  await storageService.putObj(STORAGE_KEY, 'songs', visitedSongs)
+  await storageService.putObj(STORAGE_KEY, 'visitedSongs', visitedSongs)
 }
 
 async function saveUserHistory(key, val) {

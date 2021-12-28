@@ -2,7 +2,8 @@ import axios from 'axios'
 import he from 'he'
 import { config } from '../config/youtube.config'
 
-const {API_KEY} = config
+// const {API_KEY} = config
+const API_KEY = 'AIzaSyBqervqI1bhI7zmxR4tQEadbG8h_6pXIek';
 const SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search'
 const DETAILS_URL = 'https://www.googleapis.com/youtube/v3/videos'
 

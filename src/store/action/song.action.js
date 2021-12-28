@@ -1,4 +1,5 @@
 import { songService } from '../../services/song.service.js'
+import {historyService} from '../../services/history.service'
 
 export function loadSongs(search) {
     return async dispatch => {
@@ -9,10 +10,11 @@ export function loadSongs(search) {
 }
 
 export function loadSong(songId){
-  console.log('songId', songId)
   return async dispatch =>{
     const song = await songService.getById(songId);
+    await historyService.addVisitedSong(song)
     dispatch({ type: 'SET_SONG', song })
+    dispatch({type:'ADD_VISITED_SONGS', song})
   }
 }
 
