@@ -1,0 +1,28 @@
+// Setup
+@import "setup/variables.scss";
+@import "setup/functions.scss";
+@import "setup/mixins.scss";
+@import "setup/typography.scss";
+
+// Basics
+@import "basics/_form.scss";
+@import "basics/_helpers.scss";
+@import "basics/_layout.scss";
+@import "basics/_base.scss";
+@import "basics/_links.scss";
+@import "basics/_buttons.scss";
+
+// Components
+@import "components/_footer.scss";
+@import "components/_header.scss";
+@import "components/_card.scss";
+@import "components/_module.scss";
+@import "components/_stat.scss";
+@import "components/_list-paginator.scss";
+@import "components/music/_playList.scss";
+@import "components/music/_playPreview.scss";
+@import "components/music/_songPreview.scss";
+
+// Pages: 
+@import "pages/_home.scss";
+@import "pages/_playDetails.scss";

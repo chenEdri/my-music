@@ -1,0 +1,28 @@
+.footer-container {
+  position: relative;
+  padding: 1.2em 0em 2em 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-top: 0.7px solid $mid-blue;
+
+  .foot-col {
+    font-display: flex;
+    flex-direction: column;
+    justify-content: center;
+    & p {
+      display: block;
+    }
+    & p:first-child {
+      color: $li-grey;
+      font-weight: bolder;
+    }
+    &a {
+      font-size: 0.8rem;
+      color: $dark-grey;
+    }
+    &a:hover{
+      color: $mid-blue;
+    }
+  }
+}

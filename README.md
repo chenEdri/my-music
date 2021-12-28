@@ -1,6 +1,20 @@
-# Getting Started with Create React App
+# MY-MUSIC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+GitHub: @chenEdri
+
+React Hooks , Styled Components, and the Spotify API.
+
+
+## Description
+
+- This is a Frontend web application created with [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) using [React](https://reactjs.org/), a JavaScript library for building user interfaces, [SCSS](https://sass-lang.com/) and interacts with the [Spotify Web API](https://developer.spotify.com/documentation/web-api/reference/#/), a third-party API.
+- The goal of this app is to use the Spotify API as a leverage in order to provide users the best practice of sorting, moving between different playlists and albums. 
+- The Spotify API uses [OAuth (Open Authorization)](https://oauth.net/2/) for user authentification. OAuth is a secure, industry-standard protocol that allows users to approve one application interacting with another without giving away their password. Authorization is passed between apps over HTTPS with access tokens.
+- API calls are made in the React app to the Spotify API and displays data from the responses in templates. [React Router](https://reactrouter.com/) helps create the front end architecture.
+- The main application code is located in [index.js](index.js).
+- Both the React front end and Node.js back end are deployed using [Heroku](https://www.heroku.com/free).
+- JavaScript code has been formatted according to the [Prettier style guide](https://prettier.io/docs/en/why-prettier.html) specification. Comments and spacing keep the code as organized and readable as possible.
+- The application pages are styled using [Scss](https://sass-lang.com/) library to compile style code to css files.
 
 ## Available Scripts
 
