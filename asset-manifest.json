@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6c8cb62b.css",
+    "main.js": "/static/js/main.34dcfa78.js",
+    "static/js/787.d1979329.chunk.js": "/static/js/787.d1979329.chunk.js",
+    "static/media/guitarLogo.png": "/static/media/guitarLogo.3cfd885f905648ec70ed.png",
+    "static/media/Caveat-Regular.ttf": "/static/media/Caveat-Regular.76167cc679e8138706a2.ttf",
+    "static/media/Livvic-Bold.ttf": "/static/media/Livvic-Bold.24721b262e71d62c58b1.ttf",
+    "static/media/Livvic-SemiBold.ttf": "/static/media/Livvic-SemiBold.f5f723711280f4536ef8.ttf",
+    "static/media/Lato-Regular.ttf": "/static/media/Lato-Regular.9919edff6283018571ad.ttf",
+    "static/media/Lato-Bold.ttf": "/static/media/Lato-Bold.5dd5aa0269395f0ea927.ttf",
+    "static/media/Lato-Thin.ttf": "/static/media/Lato-Thin.01923cbbba31d9cb7f29.ttf",
+    "index.html": "/index.html",
+    "main.6c8cb62b.css.map": "/static/css/main.6c8cb62b.css.map",
+    "main.34dcfa78.js.map": "/static/js/main.34dcfa78.js.map",
+    "787.d1979329.chunk.js.map": "/static/js/787.d1979329.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6c8cb62b.css",
+    "static/js/main.34dcfa78.js"
+  ]
+}
