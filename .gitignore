@@ -4,10 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
-/src/youtube.config.js
+
 
 # testing
 /coverage
+
+# config
+/src/config
 
 # production
 /build
