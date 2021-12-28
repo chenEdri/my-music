@@ -1,10 +1,12 @@
+import {updateObjByKey} from './util.service'
+
 export const storageService = {
   query,
   get,
   post,
   postMany,
   put,
-  _save,
+  putObj,
   remove,
   removeEntity
 }
@@ -46,6 +48,13 @@ function put(entityType, updatedEntity) {
   })
 }
 
+async function putObj(entityType, objKey, objVal ){
+  let res = await query(entityType)
+  res = updateObjByKey(res, objKey, objVal)
+  _save(entityType, res)
+  return res;
+}
+
 function remove(entityType, entityId) {
   return query(entityType).then((entities) => {
     const idx = entities.findIndex((entity) => entity.id === entityId)
@@ -58,9 +67,11 @@ function remove(entityType, entityId) {
   localStorage.removeItem(entityType)
 }
 
+
 function _save(entityType, entities) {
   localStorage.setItem(entityType, JSON.stringify(entities))
 }
+
 
 function _makeId(length = 5) {
   let text = ''

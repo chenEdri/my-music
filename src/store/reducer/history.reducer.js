@@ -30,6 +30,7 @@ export function historyReducer(state = initialState, action) {
         visitedSongs: action.res,
       }
     case 'SET_LAST_USER_HISTORY':
+      console.log('action', action)
       return {
         ...state,
         lastUserhistory: action.res,

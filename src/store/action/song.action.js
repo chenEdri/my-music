@@ -35,5 +35,6 @@ export function setPage(page){
 }
 
 export function setView(isListView){
+  console.log('here');
   return dispatch => {dispatch({ type: 'SET_VIEW', isListView})}
 }

@@ -1,5 +1,5 @@
 import { storageService } from './async-storage.service'
-import { getObjectKey } from './util.service'
+import { getObjectKey, updateObjByKey } from './util.service'
 
 const STORAGE_KEY = 'history'
 
@@ -30,14 +30,32 @@ async function getByKey(key) {
 
 async function addSearch(search) {
   let history = await storageService.query(STORAGE_KEY)
+  const { searchList } = history
   history = { ...history, searchList: searchList.push(search) }
-  return await storageService._save(STORAGE_KEY, history)
+  return await storageService.putObj(STORAGE_KEY, 'searchList', history.search)
 }
 
 async function addVisitedSong(song) {
   let history = await storageService.query(STORAGE_KEY)
+  const { visitedSongs } = history
   history = { ...history, visitedSongs: visitedSongs.push(song) }
-  return await storageService._save(STORAGE_KEY, history)
+  return await storageService.putObj(STORAGE_KEY, 'songs', history.songs)
+}
+
+async function saveUserHistory(key, val) {
+  try {
+    let history = await storageService.query(STORAGE_KEY)
+    let { lastUserhistory } = history
+    lastUserhistory = updateObjByKey(lastUserhistory, key, val)
+    const changedHistory = await storageService.putObj(
+      STORAGE_KEY,
+      'lastUserhistory',
+      lastUserhistory
+    )
+    return changedHistory
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 function clearHistory() {
@@ -50,4 +68,5 @@ export const historyService = {
   addSearch,
   addVisitedSong,
   clearHistory,
+  saveUserHistory,
 }

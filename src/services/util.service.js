@@ -84,3 +84,7 @@ export function getSongsToShow(page, songs){
 export function getObjectKey(key){
   return key.toLowerCase().replace(/_/.g, char=> char[1].toUpperCase())
 }
+
+export function updateObjByKey(obj , key , val ){
+  return {...obj, [key] : val}
+}

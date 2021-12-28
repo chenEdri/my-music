@@ -1,18 +1,27 @@
 
-import { songService } from './services/song.service'
-import { userService } from './services/user.service'
 import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import routes from './router'
 import { Header } from './cmps/Header'
 import { Footer } from './cmps/Footer'
 import ScrollToTop from './cmps/ScrollToTop'
-import {useState} from 'react'
+import {useEffect} from 'react'
+import {loadHistory, saveUserHistory} from './store/action/history.action'
+import {useDispatch , useSelector} from 'react-redux'
 
 function App() {
-  const [isDark, setisDark] = useState(true)
-  const toggleDarkMode = ()=>{ setisDark(!isDark)}
+  const {lastUserhistory} = useSelector(state => state.historyReducer)
+  const {isDarkTheme} = lastUserhistory
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(!lastUserhistory) dispatch(loadHistory())}
+    ,[lastUserhistory])
+
+  const toggleDarkMode = ()=>{ 
+    dispatch(saveUserHistory('SET_LAST_USER_HISTORY', 'isDarkTheme', !isDarkTheme))
+  }
   
-  const bgc = isDark? 'dark-bgc':'li-bgc'
+  const bgc = isDarkTheme? 'dark-bgc':'li-bgc'
   return (
     <div className={`App ${bgc}`}>
       <Router>

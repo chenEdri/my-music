@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Search } from '../cmps/music/Search'
 import { ListPaginator } from '../cmps/ListPaginator'
@@ -7,6 +7,7 @@ import { loadSongs, setPage , setView} from '../store/action/song.action'
 import { SongList } from '../cmps/music/SongList'
 import GridView from '@material-ui/icons/GridOnOutlined'
 import ViewList from '@material-ui/icons/ListAlt'
+import { saveUserHistory } from '../store/action/history.action'
 
 function MainApp() {
   const dispatch = useDispatch()
@@ -23,6 +24,7 @@ function MainApp() {
   }
 
   const toggleListView = () => {
+    dispatch(saveUserHistory('SET_LAST_USER_HISTORY', 'isListView', !isListView))
     dispatch(setView(!isListView))
   }
 

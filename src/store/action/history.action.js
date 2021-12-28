@@ -1,9 +1,9 @@
-import { historyService } from '../../services/playlist.service.js'
+import { historyService } from '../../services/history.service'
 
 
 export function loadHistory(){
   return async dispatch => {
-    const history = historyService.query()
+    const history = await historyService.loadHistory()
     dispatch({type: 'SET_HISTORY', history})
   }
 }
@@ -26,6 +26,12 @@ export function addVisitedSong(song){
   return async dispatch =>{
     const newSong = await historyService.addSearch(song);
     dispatch({ type: 'ADD_VISITED_SONGS', newSong })
+  }
+}
+export function saveUserHistory(type, key, val){
+  return async dispatch =>{
+    const changedHistory = await historyService.saveUserHistory(key, val)
+    dispatch({type, res: changedHistory.lastUserhistory})
   }
 }
 
