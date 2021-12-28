@@ -18,6 +18,7 @@ export const Search = ({ onSetSearch }) => {
     ev.preventDefault()
     onSetSearch(txtInput)
     setTxtInput('')
+    inputRef.current.value = '';
   }
 
   return (

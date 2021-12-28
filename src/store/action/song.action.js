@@ -9,9 +9,10 @@ export function loadSongs(search) {
 }
 
 export function loadSong(songId){
+  console.log('songId', songId)
   return async dispatch =>{
-    const songs = await songService.getById(songId);
-    dispatch({ type: 'SET_SONG', songs })
+    const song = await songService.getById(songId);
+    dispatch({ type: 'SET_SONG', song })
   }
 }
 
@@ -20,6 +21,10 @@ export function removeSong(songId) {
         await songService.remove(songId)
         dispatch({ type: 'REMOVE_SONG', songId })
       };
+}
+
+export function clearCurrSong(){
+  return dispatch => {dispatch({ type: 'SET_SONG', song:null})}
 }
 
 export function saveSong(song) {

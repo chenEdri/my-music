@@ -1,5 +1,5 @@
 import { storageService } from './async-storage.service'
-import { getObjectKey, updateObjByKey } from './util.service'
+import { getObjectKey, updateObjByKey , addToExlusiveArr} from './util.service'
 
 const STORAGE_KEY = 'history'
 
@@ -30,16 +30,16 @@ async function getByKey(key) {
 
 async function addSearch(search) {
   let history = await storageService.query(STORAGE_KEY)
-  const { searchList } = history
-  history = { ...history, searchList: searchList.push(search) }
-  return await storageService.putObj(STORAGE_KEY, 'searchList', history.search)
+  let { searchList } = history
+  searchList = addToExlusiveArr(searchList, search)
+  await storageService.putObj(STORAGE_KEY, 'searchList', searchList)
 }
 
 async function addVisitedSong(song) {
   let history = await storageService.query(STORAGE_KEY)
   const { visitedSongs } = history
-  history = { ...history, visitedSongs: visitedSongs.push(song) }
-  return await storageService.putObj(STORAGE_KEY, 'songs', history.songs)
+  visitedSongs.push(song) 
+  await storageService.putObj(STORAGE_KEY, 'songs', visitedSongs)
 }
 
 async function saveUserHistory(key, val) {

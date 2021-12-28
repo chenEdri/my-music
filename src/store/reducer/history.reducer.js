@@ -30,20 +30,23 @@ export function historyReducer(state = initialState, action) {
         visitedSongs: action.res,
       }
     case 'SET_LAST_USER_HISTORY':
-      console.log('action', action)
       return {
         ...state,
         lastUserhistory: action.res,
       }
     case 'ADD_SEARCH':
-      return {
+      const _searchList = state.searchList
+      _searchList.push(action.search)
+    return {
         ...state,
-        searchList: state.searchList.push(action.newSearch),
+        searchList: _searchList,
       }
     case 'ADD_VISITED_SONGS':
+      const _visitedSongs = state.visitedSongs
+      _visitedSongs.push(action.song)
       return {
         ...state,
-        visitedSongs: state.visitedSongs.push(action.newSong),
+        visitedSongs: _visitedSongs,
       }
     case 'CLEAR_HISTORY':
       return {

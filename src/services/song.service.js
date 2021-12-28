@@ -16,14 +16,12 @@ export const songService = {
 async function query(txt) {
   if(!txt.length) return
   let songs = await youtubeService.get(txt)
-  console.log('songs-', songs);
-  // songs = _filterSongs(songs)
   return songs
 }
 
 async function getById(songId) {
-  const song = await storageService.get(STORAGE_KEY, songId)
-  return song
+  const song = await youtubeService.getSongById(songId)
+  return song.items[0]
 }
 
 async function remove(songId) {

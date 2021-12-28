@@ -16,16 +16,17 @@ export function getByKey(key) {
 }
 
 export function addSearch(search){
+  console.log(search);
   return async dispatch =>{
-    const newSearch = await historyService.addSearch(search);
-    dispatch({ type: 'ADD_SEARCH', newSearch })
+    await historyService.addSearch(search);
+    dispatch({ type: 'ADD_SEARCH', search })
   }
 }
 
 export function addVisitedSong(song){
   return async dispatch =>{
-    const newSong = await historyService.addSearch(song);
-    dispatch({ type: 'ADD_VISITED_SONGS', newSong })
+    await historyService.addSearch(song);
+    dispatch({ type: 'ADD_VISITED_SONGS', song })
   }
 }
 export function saveUserHistory(type, key, val){

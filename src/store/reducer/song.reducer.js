@@ -5,7 +5,7 @@ const initalPaginator = {
 
 const initialState = {
   songs: [],
-  currSong: {},
+  currSong: null,
   paginator: initalPaginator,
   isListView: true
 }

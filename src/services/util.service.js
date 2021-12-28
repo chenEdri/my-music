@@ -88,3 +88,10 @@ export function getObjectKey(key){
 export function updateObjByKey(obj , key , val ){
   return {...obj, [key] : val}
 }
+
+export function addToExlusiveArr(arr, item){
+  const set = new Set(arr);
+  console.log('set-', set);
+  set.add(item);
+  return [...set]
+}

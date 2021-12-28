@@ -10,6 +10,7 @@ export const youtubeService = {
   get,
   getDuration,
   getSongById,
+  _titleSimplify
 }
 
 async function get(query) {
@@ -63,7 +64,6 @@ async function getDuration(youtubeId, timeString) {
 
 
 function _getOrganizedRes(res){
-    console.log(res);
     return res.items.map(item=>{
         const {id} = item;
         const {title, description,thumbnails} = item.snippet
