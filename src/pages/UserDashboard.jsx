@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from "react-router-dom";
 //components:
 import { SearchList } from '../cmps/user/SearchList'
 import { VisitedList } from '../cmps/user/VisitedList'
-import { ListPaginator } from '../cmps/ListPaginator'
 
 //functionality:
 import { loadHistory } from '../store/action/history.action'
 import { getSongsToShow, getTotalPages } from '../services/util.service'
-import {loadSong} from '../store/action/song.action'
+import { loadSong, updateSongList } from '../store/action/song.action'
+import { utilService } from '../services/util.service'
 
 //style:
 import { Pagination } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles'
 
-export default function UserDashboard(porps) {
+export default function UserDashboard() {
+  // initialize:
   const [visitPage, setVisitPage] = useState(1)
   const [searchPage, setSearchPage] = useState(1)
-  const history = useHistory()
   // change the key name to lastUserHistory
   const { searchList, visitedSongs, lastUserhistory } = useSelector(
     (state) => state.historyReducer
@@ -27,16 +26,22 @@ export default function UserDashboard(porps) {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!searchList.length) dispatch(loadHistory())
+    dispatch(loadHistory())
   }, [visitPage, searchPage])
 
-  const onLoadSong = (id) => {
-    dispatch(loadSong(id , true))
-    history.push('/main')
+  /**
+   * @param {String} id
+   * @param {String} key
+   * @return {Dispatch} - update the Store for new song list
+   */
+  const onLoadSong = (id, key, index) => {
+    dispatch(loadSong(id, true))
+    if (key === 'search') {
+      dispatch(updateSongList(searchList[index].res))
+    } else dispatch(updateSongList(visitedSongs))
   }
 
-  //use style pagination:
-
+  //use style for pagination:
   const useStyles = makeStyles(() => ({
     ul: {
       '& .MuiPaginationItem-root': {
@@ -44,7 +49,7 @@ export default function UserDashboard(porps) {
       },
     },
   }))
-  const classes= useStyles() 
+  const classes = useStyles()
   const onSwitchSearchPage = (e, pageNum) => setSearchPage(pageNum)
   const onSwitchVisitPage = (e, pageNum) => setVisitPage(pageNum)
 
@@ -55,7 +60,6 @@ export default function UserDashboard(porps) {
   //for Visit Pagination:
   const totVisited = getTotalPages(visitedSongs.length, 5)
   const visits = getSongsToShow(visitPage, visitedSongs, 5)
-
   return (
     <section className='main-container'>
       <div className='history-container'>
@@ -68,12 +72,16 @@ export default function UserDashboard(porps) {
               page={searchPage}
               shape='rounded'
               onChange={onSwitchSearchPage}
-              classes={{ ul: classes.ul }} 
+              classes={{ ul: classes.ul }}
             />
           </div>
           <div className='search-container'>
             {searchList && searchList.length ? (
-              <SearchList searches={searches.songsToShow} onLoadSong={onLoadSong}/>
+              <SearchList
+                index={searches.index}
+                searches={searches.songsToShow}
+                onLoadSong={onLoadSong}
+              />
             ) : (
               ''
             )}
@@ -88,7 +96,7 @@ export default function UserDashboard(porps) {
               page={visitPage}
               shape='rounded'
               onChange={onSwitchVisitPage}
-              classes={{ ul: classes.ul }} 
+              classes={{ ul: classes.ul }}
             />
           </div>
           <div className='playlist-container'>

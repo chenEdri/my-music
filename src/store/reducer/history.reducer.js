@@ -42,7 +42,6 @@ export function historyReducer(state = initialState, action) {
         searchList: _searchList,
       }
     case 'ADD_VISITED_SONGS':
-      console.log('historyR');
       const _visitedSongs = state.visitedSongs
       _visitedSongs.unshift(action.song)
       return {

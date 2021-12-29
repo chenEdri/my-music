@@ -2,7 +2,6 @@ import React from 'react'
 import { eventBusService } from '../../services/eventBus.service'
 
 export function SongModal({ song }) {
-  console.log(song);
   const imgUrl =(song)? song.snippet.thumbnails?.standard?.url :'https://image.freepik.com/free-vector/musical-notes-frame-with-text-space_1017-32857.jpg'
 
   const handleClick = (ev) => {
@@ -18,10 +17,8 @@ export function SongModal({ song }) {
           src={
             imgUrl 
           }
+          alt="#"
         />
-        {/* <div className="middle">
-            <img src='./player-btn.png'/>
-        </div> */}
       </div>
     </section>
   )

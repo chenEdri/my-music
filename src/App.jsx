@@ -21,7 +21,7 @@ function App() {
   const [isPlayerVisible, setIsPlayerVisible] = useState(false)
   const { isDarkTheme } = lastUserhistory
   const dispatch = useDispatch()
-  let removeEventBus
+  let removeEventBus = []
 
   useEffect(() => {
     if(currSong && currSong.id && !isPlayerVisible) setIsPlayerVisible(true)

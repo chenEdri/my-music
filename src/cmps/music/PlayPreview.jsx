@@ -1,5 +1,4 @@
 
-//add functionality to move to the modal from here
 export function PlayPreview({song,onLoadSong}) {
   const { id, title , imgUrl } = song
   return (

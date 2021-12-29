@@ -22,6 +22,8 @@ function getRandomNumber(min, max) {
 }
 
 function findIdxById(arr, id) {
+  console.log('arr', arr)
+  console.log('id', id)
   return arr.findIndex((item) => item.id === id)
 }
 
@@ -37,7 +39,7 @@ function getDate() {
 function getLastDays(days) {
   const lastFiveDays = []
   const date = new Date()
-  const year = +date.getFullYear()
+  // const year = +date.getFullYear()
   for (let i = 0; i < days; i++) {
     let last = new Date(date.getTime() - i * 24 * 60 * 60 * 1000)
     let lastDate = _getDateString(last)
@@ -58,7 +60,7 @@ function _getDateString(date) {
 function getDispatchForFilter(ev) {
   const { value, name } = ev.target
   const type = `SET_${name}`
-  console.log('type-',type);
+  console.log('type-', type)
   switch (name) {
     case 'TITLE':
       return { type, title: value }
@@ -71,28 +73,35 @@ function getDispatchForFilter(ev) {
   }
 }
 
-export function getTotalPages(total, number = 6){
-  return Math.ceil(+total / +number )
+export function getTotalPages(total, number = 6) {
+  return Math.ceil(+total / +number)
 }
 
-export function getSongsToShow(page, songs, count = 6){
+export function getSongsToShow(page, songs, count = 6) {
   const index = page !== 0 ? (page - 1) * count : page * count
-  let res = {index, songsToShow: songs.slice(index, index + count)}
+  let res = { index, songsToShow: songs.slice(index, index + count) }
   return res
 }
 
-export function getObjectKey(key){
-  return key.toLowerCase().replace(/_/.g, char=> char[1].toUpperCase())
+export function getObjectKey(key) {
+  return key.toLowerCase().replace(/_/.g, (char) => char[1].toUpperCase())
 }
 
-export function updateObjByKey(obj , key , val ){
-  return {...obj, [key] : val}
+export function updateObjByKey(obj, key, val) {
+  return { ...obj, [key]: val }
 }
 
-export function addToExlusiveArr(arr, item){
-  const set = new Set(arr);
-  console.log('set-', set);
-  set.add(item);
+export function addToExlusiveArr(arr, item) {
+  const set = new Set(arr)
+  set.add(item)
   return [...set]
 }
 
+// using object map in order to run O-N and get the same exlusive arr
+export function getExclusiveArr(arr) {
+  let objMap = arr.reduce((acc, item) => {
+    if (!acc[item.id]) acc[item.id] = item
+    return acc
+  }, {})
+  return Object.values(objMap)
+}

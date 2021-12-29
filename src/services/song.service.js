@@ -2,7 +2,7 @@
 import {storageService} from './async-storage.service'
 import { userService } from './user.service'
 import {youtubeService} from './youtube.service'
-
+import {getExclusiveArr} from './util.service'
 const STORAGE_KEY = 'song'
 
 export const songService = {
@@ -10,12 +10,14 @@ export const songService = {
   getById,
   remove,
   save,
+  updateList
   // createSongs
 }
 
 async function query(txt) {
   if(!txt.length) return
   let songs = await youtubeService.get(txt)
+  await storageService.postMany(STORAGE_KEY, songs)
   return songs
 }
 
@@ -50,24 +52,28 @@ async function save(song) {
   }
 }
 
-// function _filterSongs(playlists, filterBy) {
-//   const count = filterBy.count ? +filterBy.count : 12
-//   let index = filterBy.page ? (filterBy.page - 1) * count : 0
-//   let page = filterBy.page ? filterBy.page : 1
-//   if (filterBy.title) {
-//     const regex = new RegExp(filterBy.title, 'i')
-//     playlists = playlists.filter(
-//       (playlist) => regex.test(playlist.name)
-//     )
-//   }
-//   if(filterBy.owner){
-//     const regex = new RegExp(filterBy.owner, 'i')
-//     playlists = playlists.filter(playlist=> regex.test(playlist.owner.display_name))
-//   }
- 
-//   // playlists.sort((a, b) => a.createdAt - b.createdAt)
-//   return { playlists: playlists.slice(index, index + count), total: playlists.length, page }
-// }
+async function updateList(songs){
+  let newSongList = getExclusiveArr(songs)
+  newSongList = _getOrganizedRes(newSongList)
+  await storageService.postMany(STORAGE_KEY, newSongList)
+  return newSongList
+}
+
+
+function _getOrganizedRes(songs){
+  if(!songs[0].hasOwnProperty('snippet')) return songs
+  return songs.map(song=>{
+      const {id} = song;
+      const {title, description,thumbnails} = song.snippet
+      return{ 
+          id: id.videoId,
+          title:title,
+          description,
+          imgUrl: thumbnails.medium.url
+      }   
+  })
+}
+
 
 function _validateSong(song) {
   const errs = []

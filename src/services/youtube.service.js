@@ -11,7 +11,8 @@ export const youtubeService = {
   get,
   getDuration,
   getSongById,
-  _titleSimplify
+  _titleSimplify,
+  
 }
 
 async function get(query) {

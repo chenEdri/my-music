@@ -16,7 +16,7 @@ export function loadSong(songId , isPlaying = false){
     const song = await songService.getById(songId, isPlaying);
     await historyService.addVisitedSong(song)
     dispatch({ type: 'SET_SONG', song })
-    dispatch({type:'ADD_VISITED_SONGS', song})
+   if(!isPlaying) dispatch({type:'ADD_VISITED_SONGS', song})
   }
 }
 
@@ -29,6 +29,13 @@ export function removeSong(songId) {
 
 export function clearCurrSong(){
   return dispatch => {dispatch({ type: 'SET_SONG', song:null})}
+}
+
+export function updateSongList(songs) {
+  return async dispatch => {
+    songs = await songService.updateList(songs)
+    dispatch({ type: 'SET_SONGS', songs})
+  }
 }
 
 export function saveSong(song) {
@@ -48,6 +55,7 @@ export function setPage(page){
 }
 
 export function setView(isListView){
-  console.log('here');
   return dispatch => {dispatch({ type: 'SET_VIEW', isListView})}
 }
+
+
