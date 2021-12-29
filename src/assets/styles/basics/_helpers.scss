@@ -46,6 +46,14 @@
   text-align: center;
 }
 
+//visability
+.hidden{
+  visibility: hidden;
+}
+.visible{
+  visibility: visible;
+}
+
 //colors:
 .clr1 {
   color: $clr1;

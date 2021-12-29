@@ -4,7 +4,9 @@ import {historyService} from '../../services/history.service'
 export function loadSongs(search) {
     return async dispatch => {
         const songs = await songService.query(search);
-        console.log(songs);
+        const searchList = {search , res: songs}
+        await historyService.addSearch(searchList)
+        dispatch({type: 'ADD_SEARCH', searchList})
         dispatch({ type: 'SET_SONGS', songs })
       };
 }

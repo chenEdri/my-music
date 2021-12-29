@@ -27,7 +27,6 @@ export function Player({ song , songs, getSongToPlay }) {
   const [timePlayed, setTimePlayed] = useState(0)
 
   useEffect(() => {
-    console.log(song);
     if(playerRef){
       if(!isPlaying) setIsPlaying(true)
       playerRef.current?.seekTo(timePlayed)
@@ -100,9 +99,9 @@ export function Player({ song , songs, getSongToPlay }) {
     <React.Fragment>
       <ReactPlayer
         ref={playerRef}
-        className='player player-fragment'
+        className='player player-fragment hidden'
         width='600px'
-        height='50px'
+        height='120px'
         url={`https://www.youtube.com/watch?v=${song?.id}` || 'https://www.youtube.com/watch?v=KDIbpeu9Ccw'}
         playing={isPlaying}
         controls={false}

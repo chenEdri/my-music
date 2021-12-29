@@ -1,7 +1,6 @@
 // necessary core imports:
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 //components:
 import { ListPaginator } from '../cmps/ListPaginator'
 import { Search } from '../cmps/music/Search'
@@ -9,13 +8,12 @@ import { SongList } from '../cmps/music/SongList'
 import { SongModal } from '../cmps/music/SongModal'
 
 //functionality:
-import { saveUserHistory, addSearch } from '../store/action/history.action'
+import { saveUserHistory } from '../store/action/history.action'
 import {
   loadSongs,
   loadSong,
   setPage,
   setView,
-  clearCurrSong,
 } from '../store/action/song.action'
 import { getSongsToShow, getTotalPages } from '../services/util.service'
 
@@ -26,6 +24,7 @@ import ViewList from '@material-ui/icons/ListAlt'
 function MainApp() {
   const dispatch = useDispatch()
   const [search, setSearch] = useState('')
+  const [isModalSong, setIsModalSong] = useState(false)
   const { songs, paginator, isListView, currSong } = useSelector(
     (state) => state.songReducer
   )
@@ -33,7 +32,6 @@ function MainApp() {
   useEffect(() => {
     if (search.length) {
       dispatch(loadSongs(search))
-      dispatch(addSearch(search))
     }
   }, [search])
 
@@ -54,25 +52,26 @@ function MainApp() {
 
   const onLoadSong = (id) => {
     dispatch(loadSong(id))
+    setIsModalSong(true)
   }
 
-  const onCloseModal = (ev) => {
-    dispatch(clearCurrSong())
+  const onCloseModal = () => {
+    setIsModalSong(false)
   }
 
   const { page } = paginator
   const totalPages = getTotalPages(songs.length)
   const { index, songsToShow } = getSongsToShow(page, songs)
   const gridView = isListView ? '' : 'playlist-container'
-  const fadeMain = currSong ? 'fade-out' : 'fade-in'
-  const fadeModal = currSong ? 'fade-in' : 'fade-out'
+  const fadeMain = isModalSong ? 'fade-out' : 'fade-in'
+  const fadeModal = isModalSong ? 'fade-in' : 'fade-out'
   return (
     <section>
       <div className={`main-container ${fadeMain}`}>
         <div>
           <h2 className='title'>Sound-Awsome!</h2>
-          {!currSong ?<Search onSetSearch={onSetSearch} />:''}
-          {songsToShow && songsToShow.length ? (
+          {!isModalSong ?<Search onSetSearch={onSetSearch} />:''}
+          {!isModalSong && songs && songs.length? (
             <div>
               <div className={`${gridView}`}>
                 <SongList
@@ -101,10 +100,10 @@ function MainApp() {
           </button>
         </div>
       </div>
-      {currSong ? (
+      {isModalSong && currSong? (
         <div
           className={`modal-container ${fadeModal}`}
-          onClick={(ev) => onCloseModal(ev)}
+          onClick={() => onCloseModal()}
         >
           <SongModal song={currSong} />
         </div>

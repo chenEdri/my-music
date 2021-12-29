@@ -1,42 +1,49 @@
 import React from 'react'
+import { WhatsApp, LinkedIn, Mail } from '@material-ui/icons'
 
 export function Footer() {
   return (
-    <div className='footer bgc-dark'>
+    <div className='footer'>
       <div className='footer-container'>
         <div className='foot-col'>
-          <p>TECHNOLOGY</p>
-          <p>React Hooks</p>
-          <p>Redux</p>
-          <p>Web Api</p>
+          <p className="head">TECHNOLOGY</p>
+          <div className='foot-grid'>
+            <p>React Hooks</p>
+            <p>Redux</p>
+            <p>Youtube Api</p>
+          </div>
         </div>
 
         <div className='foot-col'>
-          <p>Contact Info</p>
-          <div className='mb10'>
-            <a className='foot-hover mb10' href='mailto:chenedri22@gmail.com'>
-              chenedri22@gmail.com
-            </a>
+          <p className="head">Contact Info</p>
+          <div className="flex icon sb wrap ">
+            <div className='mb10'>
+              <a className='foot-hover mb10' href='mailto:chenedri22@gmail.com'>
+                <Mail />
+              </a>
+            </div>
+            <div >
+              <a
+                href='https://www.linkedin.com/in/chen-edri-46290776/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <LinkedIn />
+              </a>
+            </div>
+            <div>
+              <a
+                href='https://www.linkedin.com/in/chen-edri-46290776/'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <WhatsApp />
+              </a>
+            </div>
           </div>
-          <a
-            href='https://www.linkedin.com/in/chen-edri-46290776/'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <i className='fab fa-linkedin fa-2x'></i>
-          </a>
         </div>
         <div className='foot-col'>
-            <p>About Me</p>
-          <div>
-            <a
-              href='https://www.linkedin.com/in/chen-edri-46290776/'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              Chen Edri
-            </a>
-          </div>
+          <p className="head">About Me</p>
         </div>
       </div>
     </div>

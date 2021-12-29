@@ -11,24 +11,29 @@ import { Player } from './pages/Player'
 import routes from './router'
 
 // functionality:
-import {loadSong, saveSongToPlay} from './store/action/song.action'
+import { loadSong, saveSongToPlay } from './store/action/song.action'
 import { loadHistory, saveUserHistory } from './store/action/history.action'
 import { eventBusService } from './services/eventBus.service'
 
 function App() {
   const { lastUserhistory } = useSelector((state) => state.historyReducer)
-  const {songs, currSong} = useSelector((state) => state.songReducer)
-  const {isDarkTheme} = lastUserhistory
+  const { songs, currSong } = useSelector((state) => state.songReducer)
+  const [isPlayerVisible, setIsPlayerVisible] = useState(false)
+  const { isDarkTheme } = lastUserhistory
   const dispatch = useDispatch()
-  let removeEventBus;
+  let removeEventBus
 
   useEffect(() => {
+    if(currSong && currSong.id && !isPlayerVisible) setIsPlayerVisible(true)
     if (!lastUserhistory) dispatch(loadHistory())
     removeEventBus = eventBusService.on('play-song', (song) => {
-      song = {...song, isPlaying:true}
+      song = { ...song, isPlaying: true }
       dispatch(saveSongToPlay(song))
+      setIsPlayerVisible(true)
     })
-    return ()=> {removeEventBus = null}
+    return () => {
+      removeEventBus = null
+    }
   }, [lastUserhistory, currSong])
 
   const toggleDarkMode = () => {
@@ -36,8 +41,8 @@ function App() {
       saveUserHistory('SET_LAST_USER_HISTORY', 'isDarkTheme', !isDarkTheme)
     )
   }
-  const getSongToPlay = (idx) =>{
-   dispatch(loadSong(songs[idx].id , true))
+  const getSongToPlay = (idx) => {
+    dispatch(loadSong(songs[idx].id, true))
   }
 
   const bgc = isDarkTheme ? 'dark-bgc' : 'li-bgc'
@@ -57,7 +62,11 @@ function App() {
         </Switch>
         <ScrollToTop />
       </Router>
-      {currSong && currSong.isPlaying ? <Player song={currSong} songs = {songs} getSongToPlay={getSongToPlay}/> : <Footer />}
+      {currSong && isPlayerVisible ? (
+        <Player song={currSong} songs={songs} getSongToPlay={getSongToPlay} />
+      ) : (
+        <Footer />
+      )}
     </div>
   )
 }

@@ -75,9 +75,9 @@ export function getTotalPages(total, number = 6){
   return Math.ceil(+total / +number )
 }
 
-export function getSongsToShow(page, songs){
-  const index = page !== 0 ? (page - 1) * 6 : page * 6
-  let res = {index, songsToShow: songs.slice(index, index + 6)}
+export function getSongsToShow(page, songs, count = 6){
+  const index = page !== 0 ? (page - 1) * count : page * count
+  let res = {index, songsToShow: songs.slice(index, index + count)}
   return res
 }
 
@@ -95,3 +95,4 @@ export function addToExlusiveArr(arr, item){
   set.add(item);
   return [...set]
 }
+

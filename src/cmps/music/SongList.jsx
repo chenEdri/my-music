@@ -12,7 +12,7 @@ function _SongList({ songs ,index, isListView, onLoadSong} ) {
         </li>)):
         songs.map((song, idx) => (
         <li key={song.id}>
-          <PlayPreview key={song.id} idx={index + idx} song={song} onLoadSong={onLoadSong}/>
+          <PlayPreview key={song.id} song={song} onLoadSong={onLoadSong}/>
         </li>))}
     </ul>
   )
