@@ -1,7 +1,7 @@
 import React from 'react'
 import { SongPreview } from './SongPreview'
 import { PlayPreview } from './PlayPreview'
-import ReactLoading from 'react-loading';
+import ReactLoading from 'react-loading'
 
 function _SongList({ songs, index, isListView, onLoadSong }) {
   if (!songs) return <ReactLoading type={'cubes'} color='#a22b44' />
@@ -11,15 +11,17 @@ function _SongList({ songs, index, isListView, onLoadSong }) {
         ? songs.map((song, idx) => (
             <li key={idx}>
               <SongPreview
+                index={index}
                 idx={index + idx}
                 song={song}
                 onLoadSong={onLoadSong}
+                isSearchPrev={false}
               />
             </li>
           ))
-        : songs.map((song, idx) => (
+        : songs.map((song) => (
             <li key={song.id}>
-              <PlayPreview song={song} onLoadSong={onLoadSong} />
+              <PlayPreview song={song} onLoadSong={onLoadSong} loadKey={'search'}/>
             </li>
           ))}
     </ul>

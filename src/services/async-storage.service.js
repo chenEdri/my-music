@@ -11,15 +11,32 @@ export const storageService = {
   removeEntity
 }
 
+/**
+ * @property {Function} query
+ * @param {String} entityType 
+ */
+
 function query(entityType) {
   let entities = JSON.parse(localStorage.getItem(entityType) || '[]')
   return Promise.resolve(entities)
 }
 
+/**
+ * @property {Function} get
+ * @param {String} entityType 
+ * @param {String} entityId 
+ */
+
 async function get(entityType, entityId) {
   const entities = await query(entityType)
   return entities.find(entity=>entity.id === entityId)
 }
+
+/**
+ * @property {Function} post
+ * @param {String} entityType 
+ * @param {Object} newEntity 
+ */
 
 function post(entityType, newEntity) {
   newEntity.id = _makeId()
@@ -30,6 +47,12 @@ function post(entityType, newEntity) {
   })
 }
 
+/**
+ * @property {Function} postMany
+ * @param {String} entityType 
+ * @param {Array} newEntities 
+ */
+
 function postMany(entityType, newEntities) {
   return query(entityType).then((entities) => {
     newEntities = newEntities.map((entity) => ({ ...entity, id: _makeId() }))
@@ -38,6 +61,13 @@ function postMany(entityType, newEntities) {
     return newEntities
   })
 }
+
+/**
+ * @property {Function} put
+ * @param {String} entityType 
+ * @param {Object} updatedEntity 
+ */
+
 
 function put(entityType, updatedEntity) {
   return query(entityType).then((entities) => {
@@ -48,12 +78,24 @@ function put(entityType, updatedEntity) {
   })
 }
 
+/**
+ * 
+ * @param {string} entityType 
+ * @param {String} objKey 
+ * @param {any} objVal 
+ */
+
 async function putObj(entityType, objKey, objVal ){
   let res = await query(entityType)
   res = updateObjByKey(res, objKey, objVal)
   _save(entityType, res)
   return res;
 }
+
+/**
+ * @param {String} entityType 
+ * @param {String} entityId 
+ */
 
 function remove(entityType, entityId) {
   return query(entityType).then((entities) => {
@@ -63,14 +105,29 @@ function remove(entityType, entityId) {
   })
 }
 
+/**
+ * @param {String} entityType 
+ */
+
  function removeEntity(entityType) {
   localStorage.removeItem(entityType)
 }
 
+/**
+ * @property {Function} _save
+ * @param {String} entityType 
+ * @param {Array} entities 
+ */
 
 function _save(entityType, entities) {
   localStorage.setItem(entityType, JSON.stringify(entities))
 }
+
+
+/**
+ * @property {Function} _makeId
+ * @param {Number} length - the length of the string
+ */
 
 
 function _makeId(length = 5) {

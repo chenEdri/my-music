@@ -9,11 +9,13 @@ export const Search = ({ onSetSearch }) => {
     inputRef.current.focus()
   }, [])
   
+  // handle the change of the input value
   const handleChange =((ev) => {
     ev.preventDefault()
     setTxtInput(ev.target.value)
   })
   
+  // emits up the event for the main app in order to reach the store and search for new song list
   const onSubmitForm = (ev) => {
     ev.preventDefault()
     onSetSearch(txtInput)

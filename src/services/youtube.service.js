@@ -14,7 +14,11 @@ export const youtubeService = {
   _titleSimplify,
   
 }
-
+/**
+ * 
+ * @param {String} query 
+ * @returns {Promise<Object>}
+ */
 async function get(query) {
   try {
     const res = await axios.get(
@@ -26,6 +30,11 @@ async function get(query) {
   }
 }
 
+/**
+ * 
+ * @param {String} youtubeId 
+ * @returns {Promise<Object>}
+ */
 async function getSongById(youtubeId) {
   try {
     const res = await axios.get(
@@ -38,6 +47,12 @@ async function getSongById(youtubeId) {
   }
 }
 
+/**
+ * 
+ * @param {String} youtubeId 
+ * @param {String} timeString 
+ * @returns {Promise<any>}
+ */
 async function getDuration(youtubeId, timeString) {
   let duration
   if (!timeString) {

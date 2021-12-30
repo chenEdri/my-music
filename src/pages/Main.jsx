@@ -1,8 +1,8 @@
 // necessary core imports:
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 //components:
-import { ListPaginator } from '../cmps/ListPaginator'
 import { Search } from '../cmps/music/Search'
 import { SongList } from '../cmps/music/SongList'
 import { SongModal } from '../cmps/music/SongModal'
@@ -28,6 +28,7 @@ function MainApp() {
   const [search, setSearch] = useState('')
   const [isModalSong, setIsModalSong] = useState(false)
   const { songs, paginator, isListView, currSong } = useSelector(
+    //@ts-ignore
     (state) => state.songReducer
   )
 
@@ -46,10 +47,15 @@ function MainApp() {
     },
   }))
 
+  /**
+   * activat an async call to find songs by the search input 
+   * @param {String} search 
+   */
   const onSetSearch = (search) => {
     setSearch(search)
   }
 
+  // toggle between the list views and save it as the preference for the user 
   const toggleListView = () => {
     dispatch(
       saveUserHistory('SET_LAST_USER_HISTORY', 'isListView', !isListView)
@@ -57,24 +63,28 @@ function MainApp() {
     dispatch(setView(!isListView))
   }
 
+  //set new page 
   const onSwitchPage = (e, pageNum) => {
-    console.log(pageNum)
     dispatch(setPage(pageNum))
   }
 
+  //calling the store to load new song with async call to the api
   const onLoadSong = (id) => {
     dispatch(loadSong(id))
     setIsModalSong(true)
   }
 
+  // closing the image modal and sending shows back the search list
   const onCloseModal = () => {
     setIsModalSong(false)
   }
-  //pagination:
+
+  //pagination variables:
   const classes = useStyles()
   const { page } = paginator
   const totalPages = getTotalPages(songs.length)
   const { index, songsToShow } = getSongsToShow(page, songs)
+  
   //style attributes:
   const gridView = isListView ? '' : 'playlist-container'
   const fadeMain = isModalSong ? 'fade-out' : 'fade-in'

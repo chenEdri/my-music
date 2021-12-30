@@ -1,18 +1,31 @@
-
 import {storageService} from './async-storage.service'
-import { userService } from './user.service'
 import {youtubeService} from './youtube.service'
 import {getExclusiveArr} from './util.service'
 const STORAGE_KEY = 'song'
+
+
+/**
+ * Defining SongToShow Obeject :
+ * @typedef {Object} SongToShow
+ * @property {String} id - the id of the song
+ * @property {String} title - the title of the song
+ * @property {String} description - the description of the song
+ * @property {String} imgUrl - the song image
+ */
+
 
 export const songService = {
   query,
   getById,
   remove,
-  save,
-  updateList
-  // createSongs
+  updateSongList
 }
+
+/**
+ * @property {Function} query
+ * @param {String} txt 
+ * @returns {Promise<Array<SongToShow>>}
+ */
 
 async function query(txt) {
   if(!txt.length) return
@@ -21,45 +34,47 @@ async function query(txt) {
   return songs
 }
 
+/**
+ * @property {Function} getById - GET method in order to find one song object by its Id
+ * @param {String} songId - The key/attribute we use to find the object with
+ * @param {Boolean} isPlaying - The song current status in the player
+ * @returns {Promise<SongToShow>} song
+ */
+
 async function getById(songId, isPlaying) {
   let song = await youtubeService.getSongById(songId)
   song = {...song.items[0], isPlaying}
   return song
 }
 
+/**
+ * @property {Function} remove - DELETE method in order to delete on song from the saved list
+ * @param {String} songId 
+ * @returns {Promise<Void>}
+ */
+
 async function remove(songId) {
   return storageService.remove(STORAGE_KEY, songId)
 }
 
-async function save(song) {
-  
-  let addedSong
-  try {
-    _validateSong(song)
-    if (song._id) {
-      addedSong = await storageService.put(STORAGE_KEY, song)
-    } else {
-      song.ownerId = userService.getLoggedinUser()._id
-      song.createdAt = Date.now()
-      addedSong = await storageService.post(STORAGE_KEY, song)
-      console.log(addedSong)
-    }
-    return addedSong
-  } catch (errs) {
-    const errMap = {}
-    errs.forEach((currErr) => (errMap[currErr.field] = currErr.msg))
-    return Promise.reject(errMap)
-  }
-}
+/**
+ * @property {Function} updateSongList
+ * @param {Array<SongToShow>} songs 
+ * @returns {Promise<Array<SongToShow>>}
+ */
 
-async function updateList(songs){
+async function updateSongList(songs){
   let newSongList = getExclusiveArr(songs)
   newSongList = _getOrganizedRes(newSongList)
   await storageService.postMany(STORAGE_KEY, newSongList)
   return newSongList
 }
 
-
+/**
+ * @property {Function} _getOrganizedRes - Inside function helps to orgenize the object result 
+ * @param {Array<Object>} songs - Songs array with all the properties returning from the youtube API
+ * @returns {Array<SongToShow>}
+ */
 function _getOrganizedRes(songs){
   if(!songs[0].hasOwnProperty('snippet')) return songs
   return songs.map(song=>{
@@ -74,15 +89,4 @@ function _getOrganizedRes(songs){
   })
 }
 
-
-function _validateSong(song) {
-  const errs = []
-  if (!song.title) {
-    errs.push({ msg: 'Please enter a title', field: 'title' })
-  }
-  if (!song.desc) {
-    errs.push({ msg: 'Please enter a description', field: 'desc' })
-  }
-  if (errs.length) throw errs
-}
 

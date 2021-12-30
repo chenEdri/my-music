@@ -13,7 +13,6 @@ const initialState = {
 export function songReducer(state = initialState, action) {
   switch (action.type) {
     case 'SET_SONGS':
-      console.log('action', action)
       return {
         ...state,
         songs: action.songs,

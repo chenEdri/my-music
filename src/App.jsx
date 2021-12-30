@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Header } from './cmps/Header'
 import { Footer } from './cmps/Footer'
 import ScrollToTop from './cmps/ScrollToTop'
-import { Player } from './pages/Player'
+import { Player } from './cmps/music/Player'
 import routes from './router'
 
 // functionality:

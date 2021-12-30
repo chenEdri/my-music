@@ -1,5 +1,5 @@
 import React from 'react'
-import { VisitedPreview } from './VisitedPreview'
+import { PlayPreview } from '../music/PlayPreview'
 
 export function VisitedList({ visitedSongs ,onLoadSong }) {
   if (!visitedSongs) return <div>nothing to show</div>
@@ -7,7 +7,7 @@ export function VisitedList({ visitedSongs ,onLoadSong }) {
     <ul className='playlist'>
       {visitedSongs.map((song, idx) => (
         <li key={idx}>
-          <VisitedPreview key={idx} song={song} onLoadSong={onLoadSong}/>
+          <PlayPreview song={song} onLoadSong={onLoadSong} loadKey={'visit'}/>
         </li>
       ))}
     </ul>

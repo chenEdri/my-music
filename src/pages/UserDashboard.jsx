@@ -17,8 +17,8 @@ export default function UserDashboard() {
   // initialize:
   const [visitPage, setVisitPage] = useState(1)
   const [searchPage, setSearchPage] = useState(1)
-  // change the key name to lastUserHistory
   const { searchList, visitedSongs, lastUserhistory } = useSelector(
+    //@ts-ignore
     (state) => state.historyReducer
   )
 
@@ -31,7 +31,6 @@ export default function UserDashboard() {
   /**
    * @param {String} id
    * @param {String} key
-   * @return {Dispatch} - update the Store for new song list
    */
   const onLoadSong = (id, key, index) => {
     dispatch(loadSong(id, true))
@@ -48,6 +47,8 @@ export default function UserDashboard() {
       },
     },
   }))
+
+  //sets new page for each of the results
   const classes = useStyles()
   const onSwitchSearchPage = (e, pageNum) => setSearchPage(pageNum)
   const onSwitchVisitPage = (e, pageNum) => setVisitPage(pageNum)

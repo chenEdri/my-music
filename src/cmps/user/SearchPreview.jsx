@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { SearchResPreview } from './SearchResPreview'
+import { SongPreview } from '../music/SongPreview'
+import ReactLoading from 'react-loading'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons'
 
 export function SearchPreview({ index, item, onLoadSong }) {
+
   const [isOpenRes, setIsOpenRes] = useState(false)
   const toggleRes = () => setIsOpenRes(!isOpenRes)
-  if (!item || !item.search || !item.res) return <div>is Loading...</div>
+
+  if (!item || !item.search || !item.res) return <ReactLoading type={'cubes'} color='#a22b44' />
   const { search, res } = item
   const isHover = isOpenRes ? 'no-hover' : ''
   return (
@@ -23,11 +26,12 @@ export function SearchPreview({ index, item, onLoadSong }) {
         <ul>
           {res.map((song, idx) => (
             <li key={idx}>
-              <SearchResPreview
+              <SongPreview
                 index={index}
                 idx={idx}
                 song={song}
                 onLoadSong={onLoadSong}
+                isSearchPrev={true}
               />
             </li>
           ))}

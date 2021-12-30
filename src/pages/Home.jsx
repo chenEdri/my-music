@@ -1,9 +1,6 @@
 import logo from '../guitarLogo.png'
-import React, { useEffect, useState } from 'react'
-import { songService } from '../services/song.service'
-import { userService } from '../services/user.service'
-import { useDispatch, useSelector } from 'react-redux'
-import { loadUsers , login} from '../store/action/user.action'
+import React from 'react'
+
 
 function Home() {
   return (

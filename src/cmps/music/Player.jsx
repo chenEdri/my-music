@@ -1,10 +1,11 @@
+//@ts-nocheck
 // necessary core imports:
 import React, { useState, useEffect, useRef } from 'react'
 import ReactPlayer from 'react-player/youtube'
 
 //functionality:
-import { youtubeService } from '../services/youtube.service'
-import { utilService } from '../services/util.service'
+import { youtubeService } from '../../services/youtube.service'
+import { utilService } from '../../services/util.service'
 
 // style:
 import ReactLoading from 'react-loading'
@@ -17,6 +18,7 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp'
 import AllInclusive from '@material-ui/icons/AllInclusive'
 
 export function Player({ song, songs, getSongToPlay }) {
+  //player initialize buttons :
   const playerRef = useRef()
   const [isReady, setIsReady] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
@@ -32,7 +34,6 @@ export function Player({ song, songs, getSongToPlay }) {
       song.isPlaying || isKeepListening
         ? setIsPlaying(true)
         : setIsPlaying(false)
-      // if (!isPlaying) setIsPlaying(true)
       playerRef.current?.seekTo(timePlayed)
     }
   }, [isSeeking, song, songs])
@@ -41,15 +42,11 @@ export function Player({ song, songs, getSongToPlay }) {
   //when the player is ready to be plaed it activate this func
   const onReady = () => setIsReady(true)
 
-  /**
-   * @property {Function} showTime - get curr sec and return prefixed to player show
-   * @param {number} seconds
-   * @returns {String} prefixed time
-   */
+ // get curr sec and return prefixed to player show
   const showTime = (seconds) => {
     var mins
     var secs
-    if (seconds >= 60) {
+    if (+seconds >= 60) {
       mins = parseInt(seconds / 60).toString()
       secs = parseInt(seconds - mins * 60)
         .toString()
@@ -174,7 +171,7 @@ export function Player({ song, songs, getSongToPlay }) {
           </div>
           <div class='durations flex space-between'>
             {!isReady ? (
-              <ReactLoading type={'cube'} color='#a22b44' />
+              <ReactLoading type={'cubes'} color='#a22b44' />
             ) : (
               <React.Fragment>
                 {/* <div className='song-time flex align-center space-between'> */}
