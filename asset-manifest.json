@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-music/static/css/main.c7ba91b6.css",
-    "main.js": "/my-music/static/js/main.a0439964.js",
+    "main.css": "/my-music/static/css/main.1827b123.css",
+    "main.js": "/my-music/static/js/main.8bd9ec87.js",
     "static/js/787.d1979329.chunk.js": "/my-music/static/js/787.d1979329.chunk.js",
     "static/media/guitarLogo.png": "/my-music/static/media/guitarLogo.3cfd885f905648ec70ed.png",
     "static/media/Caveat-Regular.ttf": "/my-music/static/media/Caveat-Regular.76167cc679e8138706a2.ttf",
@@ -11,12 +11,12 @@
     "static/media/Lato-Bold.ttf": "/my-music/static/media/Lato-Bold.5dd5aa0269395f0ea927.ttf",
     "static/media/Lato-Thin.ttf": "/my-music/static/media/Lato-Thin.01923cbbba31d9cb7f29.ttf",
     "index.html": "/my-music/index.html",
-    "main.c7ba91b6.css.map": "/my-music/static/css/main.c7ba91b6.css.map",
-    "main.a0439964.js.map": "/my-music/static/js/main.a0439964.js.map",
+    "main.1827b123.css.map": "/my-music/static/css/main.1827b123.css.map",
+    "main.8bd9ec87.js.map": "/my-music/static/js/main.8bd9ec87.js.map",
     "787.d1979329.chunk.js.map": "/my-music/static/js/787.d1979329.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7ba91b6.css",
-    "static/js/main.a0439964.js"
+    "static/css/main.1827b123.css",
+    "static/js/main.8bd9ec87.js"
   ]
 }
