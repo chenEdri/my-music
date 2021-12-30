@@ -22,9 +22,9 @@ export const Search = ({ onSetSearch }) => {
   }
 
   return (
-    <form autoComplete='off'>
+    <form autoComplete='off' className="search-form">
       <label htmlFor=''>Search for Music</label>
-      <div>
+      <div className="search-song">
         <input 
           ref={inputRef}
           type='text'

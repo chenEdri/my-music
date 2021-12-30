@@ -63,7 +63,9 @@ function App() {
         <ScrollToTop />
       </Router>
       {currSong && isPlayerVisible ? (
+        <div className="play-bar">
         <Player song={currSong} songs={songs} getSongToPlay={getSongToPlay} />
+        </div>
       ) : (
         <Footer />
       )}

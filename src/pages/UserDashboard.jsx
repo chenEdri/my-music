@@ -8,7 +8,6 @@ import { VisitedList } from '../cmps/user/VisitedList'
 import { loadHistory } from '../store/action/history.action'
 import { getSongsToShow, getTotalPages } from '../services/util.service'
 import { loadSong, updateSongList } from '../store/action/song.action'
-import { utilService } from '../services/util.service'
 
 //style:
 import { Pagination } from '@material-ui/lab'

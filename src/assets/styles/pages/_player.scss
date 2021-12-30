@@ -1,154 +1,221 @@
-.player-container {
-  display: grid;
-  grid-column: 1/-1;
-  .player-capsule {
-    grid-area: player;
+.play-bar {
+  height: 20vh;
+  .player-youtube {
     position: fixed;
-    bottom: 0;
-    height: 80px;
+    bottom: 0em;
+    left: 0;
     width: 100%;
-    background-color: #222222;
-    background-size: cover;
-    background-position: center;
-    padding: 0 30px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #eee;
-    transition: 0.7s;
-    z-index: 30;
-  }
+    height: em(90px);
+    display: grid;
+    grid-template-columns: 25% 1fr 25%;
 
-  .song-time {
-    flex-grow: 1;
-  }
+    padding: 0 1em;
+    background: #171717;
+    box-shadow: 0 -1px 3px 0 #4f4f4f;
 
-  .player-thumbnail {
-    transform: scale(1.4);
-    object-fit: cover;
-    max-width: rem(80px);
-    cursor: pointer;
-    margin-inline-end: 15px;
-    margin-inline-start: 30px;
-  }
-
-  .player-title {
-    max-width: 35%;
-    overflow: hidden;
-    margin-right: 1em;
-    // flex-grow: 1.5;
-    font-size: 1rem;
-    line-height: 1.5em;
-    max-height: 3em;
-    // text-overflow: ellipsis;
-    align-self: center;
-    opacity: 1;
-    margin-inline-start: 10px;
-    &:hover {
-      animation: title-spin infinite 4s linear;
-    }
-  }
-
-  .player-controls {
-    padding-inline-end: 20px;
-    position: relative;
-    flex-grow: 1;
-    & > * {
-      margin-inline: 5px;
-    }
-
-    .volume-slider {
-      background-color: $clr5;
-      cursor: pointer;
-      border-radius: 10px;
-      // transform: rotate(180deg);
-      &.muted {
-        color: #292929;
-      }
-    }
-    .player-ctrl-btn {
-      border-radius: 45%;
-      padding: 5px;
+    button {
+      background-color: transparent;
+      color: $clr4;
+      margin: 0 0.25em;
 
       &:hover {
-        transform: scale(1.2);
+        color: white;
       }
     }
 
-    .back-to-box {
-      position: relative;
-      margin: 0 0px 0px 15px;
-      height: 70px;
-      width: auto;
-      cursor: pointer;
+    .player-left {
+      align-items: center;
+      white-space: nowrap;
+      cursor: default;
+      button {
+        position: relative;
+        // left: 2em;
+
+        span {
+          font-size: 1.5em;
+        }
+      }
 
       &:hover {
-        animation: jello-horizontal 1s;
+        p:nth-child(1) {
+          transform: translateX(-250%);
+        }
+      }
+
+      p {
+        line-height: 1.5em;
+        &:nth-child(1) {
+          font-size: 0.9em;
+          font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+            'Lucida Sans', Arial, sans-serif;
+          transition: all 4s linear;
+        }
+        &:nth-child(2) {
+          color: $clr4;
+        }
+      }
+
+      img {
+        height: 4em;
+        width: 3.7em;
+        z-index: 50;
+        margin-right: 0.5em;
       }
     }
-  }
-}
 
-@media (max-width: 740px) {
-  .player-container {
-    .player-capsule {
-      flex-direction: column-reverse;
-      height: 16vh;
-    }
+    .player-main {
+      grid-column: 2 / 3;
 
-    .player-ctrl-btn {
-      margin-top: 5px;
-      > * {
-        font-size: 2.5rem;
+      display: flex;
+      flex-direction: column;
+
+      & > .actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .btn-play {
+          width: 2em;
+          height: 2em;
+          background-color: #fff;
+          color: #2f2f2f;
+
+          &:hover {
+            transform: scale(1.05);
+            span {
+              padding-bottom: 0.1em;
+            }
+          }
+        }
+      }
+
+      & > .durations {
+        align-items: center;
+        justify-content: space-evenly;
+        position: relative;
+        top: 0.5em;
+
+        p {
+          margin: 0 0.5em;
+          font-size: 0.8em;
+          color: $clr4;
+        }
+        input {
+          width: 75%;
+        }
       }
     }
 
-    .player-thumbnail,
-    .player-ctrl-btn:last-of-type {
-      display: none;
-    }
-
-    .song-time {
-      width: 100%;
-    }
-
-    .player-controls {
+    .player-right {
+      grid-column: 3 / 4;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      width: 100%;
-      padding-inline-end: 0;
 
-      .back-to-box {
-        position: absolute;
-        right: -24px;
-        height: 60px;
+      input {
+        width: 50%;
+        max-width: 10em;
       }
-      .volume-slider {
-        display: none;
+      .infinite{
+        color:rgba(118,212,137,0.75);
+        &:hover{
+          color:$w;
+        }
       }
-    }
-
-    .player-title {
-      order: 1;
-      height: 3ch;
-      text-align: center;
     }
   }
 }
-.duration-slider {
-  flex-grow: 1;
-  background-color: $clr5;
+
+input[type='range'] {
+  // overflow: hidden;
+  width: 80px;
+  -webkit-appearance: none;
+  background-color: #3a3a3a;
   cursor: pointer;
-  border-radius: 10px;
-  margin: 0 15px;
 }
 
-@keyframes title-spin {
-  0% {
-    transform: translateX(0%);
+input[type='range']::-webkit-slider-runnable-track {
+  height: 0.4em;
+  -webkit-appearance: none;
+  color: #13bba4;
+  margin-top: 1px;
+  overflow: hidden;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0.45em;
+  height: 0.9em;
+  margin-top: -5px;
+  background: #ffffff;
+  // border-radius: 50%;
+  box-shadow: -500px 0 0 500px #3d9c78;
+
+  &::before {
+    content: '';
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    color: blue;
   }
-  50%{
-    transform: translate(-150%);
+}
+
+@include for-mobile-layout {
+  .player-bar {
+    .player-grid {
+      grid-template-columns: 1fr;
+      padding: 0;
+
+      .player-left {
+        padding: 0 0.5em 0 1em;
+        position: fixed;
+        width: 100%;
+        top: 3.75em;
+        justify-content: space-between;
+
+        transition: all 0.2s;
+        &.scroll-bg {
+          background-color: #333333a8;
+        }
+        img {
+          padding: 0.2em;
+          width: 2.4em;
+          height: 2.4em;
+          margin-inline-end: 1em;
+        }
+        button {
+          margin-inline-start: 1.1em;
+        }
+      }
+
+      .player-main {
+        grid-column: auto;
+        padding: 0 2.5em;
+      }
+
+      .player-right {
+        position: fixed;
+        right: -1em;
+
+        button {
+          position: fixed;
+          right: 1.5em;
+        }
+        input {
+          width: 4.7em;
+          transform: rotate(270deg);
+        }
+      }
+    }
   }
-  100% {
-    transform: translate(100%);
+}
+
+@include for-normal-layout {
+  .player-bar {
+    .player-grid {
+      position: fixed;
+      bottom: 0;
+      height: em(90px);
+    }
   }
 }

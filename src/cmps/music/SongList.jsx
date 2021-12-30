@@ -5,7 +5,6 @@ import ReactLoading from 'react-loading';
 
 function _SongList({ songs, index, isListView, onLoadSong }) {
   if (!songs) return <ReactLoading type={'cubes'} color='#a22b44' />
-  console.log(songs);
   return (
     <ul className='playlist'>
       {isListView
